@@ -319,7 +319,7 @@ export default function PartnerCard({
         <DialogContent className="sm:max-w-[90vw] sm:max-h-[90vh] p-0">
           <div className="relative w-full h-full">
             <Image
-              src={normalizePhotoSrc(selectedImage)}
+              src={normalizePhotoSrc(selectedImage ?? undefined)}
               alt="Full size"
               fill
               className="object-contain"
