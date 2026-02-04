@@ -15,4 +15,10 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       clientSecret: googleClientSecret,
     }),
   ],
+  callbacks: {
+    async signIn({ user }) {
+      const email = user?.email ?? ""
+      return email.endsWith("@duk.ac.in")
+    },
+  },
 })

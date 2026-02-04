@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { chatService } from "@/app/service/ChatService";
 import { useSession } from "next-auth/react";
 import { Send } from "lucide-react";
+import Image from "next/image";
 
 export default function ChatWindow({ partner }: { partner: Partner }) {
   const [messages, setMessages] = useState<{ sender: string; text: string }[]>([]);
@@ -40,7 +41,13 @@ export default function ChatWindow({ partner }: { partner: Partner }) {
   return (
     <div className="w-full flex flex-col min-h-[70vh] max-h-[70vh] md:max-h-[50vh] rounded-lg shadow-lg bg-zinc-950">
       <div className="w-full flex flex-row gap-3 p-4 border-b border-zinc-800 ">
-        <img src={partner.photos[0]} className="size-10 rounded-xl" alt={partner.name} />
+        <Image
+          src={partner.photos[0] || "/placeholder.svg"}
+          width={40}
+          height={40}
+          className="size-10 rounded-xl object-cover"
+          alt={partner.name}
+        />
         <h2 className="text-xl font-semibold text-zinc-100">{partner.name}</h2>
       </div>
       <div ref={messagesContainerRef} className="w-full flex-1 overflow-y-auto p-4 space-y-4 custom-scrollbar">
