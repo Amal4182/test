@@ -32,7 +32,7 @@ const profileSchema = z.object({
   interests: z.array(z.string()),
   gender: z.enum(["male", "female", "other"]),
 })
-const courses = [
+const courses: string[] = [
 ]
 export default function ProfileCompletion() {
   const router = useRouter()
