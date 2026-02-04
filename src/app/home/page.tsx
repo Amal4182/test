@@ -6,7 +6,7 @@ import { headers } from "next/headers"
 
 async function checkProfileComplete(email: string): Promise<boolean> {
   try {
-    const requestHeaders = headers()
+    const requestHeaders = await headers()
     const protocol = requestHeaders.get("x-forwarded-proto") ?? "http"
     const host = requestHeaders.get("x-forwarded-host") ?? requestHeaders.get("host")
     const baseUrl =
