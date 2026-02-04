@@ -318,7 +318,13 @@ export default function PartnerCard({
       <Dialog open={!!selectedImage} onOpenChange={() => setSelectedImage(null)}>
         <DialogContent className="sm:max-w-[90vw] sm:max-h-[90vh] p-0">
           <div className="relative w-full h-full">
-            <img src={selectedImage || ""} alt="Full size" className="w-full h-full object-contain" />
+            <Image
+              src={normalizePhotoSrc(selectedImage)}
+              alt="Full size"
+              fill
+              className="object-contain"
+              sizes="90vw"
+            />
             <Button
               className="absolute top-2 right-2"
               size="icon"
@@ -400,3 +406,8 @@ export default function PartnerCard({
     </>
   )
 }
+  const normalizePhotoSrc = (src?: string | null) => {
+    if (!src) return "/placeholder.svg"
+    if (src.startsWith("http://") || src.startsWith("https://") || src.startsWith("/")) return src
+    return `/${src}`
+  }

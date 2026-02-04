@@ -13,6 +13,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { toast } from "@/hooks/use-toast"
 import { UploadButton } from "@/utils/uploadthing"
 import { useSession } from "next-auth/react"
+import Image from "next/image"
 
 const profileSchema = z.object({
   name: z.string().min(2, { message: "Name must be at least 2 characters." }),
@@ -319,12 +320,15 @@ export default function ProfileCompletion() {
                 </FormControl>
                 <div className="grid grid-cols-2 gap-2 mt-4">
                   {photosurl.map((url, index) => (
-                    <img
-                      key={index}
-                      src={url || "/placeholder.svg"}
-                      alt={`Uploaded photo ${index + 1}`}
-                      className="w-full h-32 object-cover rounded"
-                    />
+                    <div key={index} className="relative h-32 w-full overflow-hidden rounded">
+                      <Image
+                        src={url || "/placeholder.svg"}
+                        alt={`Uploaded photo ${index + 1}`}
+                        fill
+                        className="object-cover"
+                        sizes="(max-width: 768px) 50vw, 200px"
+                      />
+                    </div>
                   ))}
                 </div>
                 <FormDescription>Please upload up to 2 photos (at least 1).</FormDescription>

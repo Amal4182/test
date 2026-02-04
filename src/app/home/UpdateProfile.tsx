@@ -14,6 +14,7 @@ import { toast } from "@/hooks/use-toast"
 import { UploadButton } from "@/utils/uploadthing"
 import { useSession } from "next-auth/react"
 import { fetchPartnerSingle } from "@/app/actions/fetchPartner"
+import Image from "next/image"
 
 const profileSchema = z.object({
   name: z.string().min(2, { message: "Name must be at least 2 characters." }),
@@ -383,23 +384,30 @@ export default function UpdateProfile() {
                 </FormControl>
                 <div className="grid grid-cols-2 gap-2 mt-4">
                   {newPhotosUrl.map((url, index) => (
-                    <img
-                      key={index}
-                      src={url || "/placeholder.svg"}
-                      alt={`Uploaded photo ${index + 1}`}
-                      className="w-full h-32 object-cover rounded"
-                    />
+                    <div key={index} className="relative h-32 w-full overflow-hidden rounded">
+                      <Image
+                        src={url || "/placeholder.svg"}
+                        alt={`Uploaded photo ${index + 1}`}
+                        fill
+                        className="object-cover"
+                        sizes="(max-width: 768px) 50vw, 200px"
+                      />
+                    </div>
                   ))}
                 </div>
                 <FormLabel>Existing photos</FormLabel>
                 <div className="grid grid-cols-2 gap-2 mt-4">
                   {photosUrl.map((url, index) => (
                     <div key={index} className="relative">
-                      <img
-                        src={url || "/placeholder.svg"}
-                        alt={`Uploaded photo ${index + 1}`}
-                        className="w-full h-32 object-cover rounded"
-                      />
+                      <div className="relative h-32 w-full overflow-hidden rounded">
+                        <Image
+                          src={url || "/placeholder.svg"}
+                          alt={`Uploaded photo ${index + 1}`}
+                          fill
+                          className="object-cover"
+                          sizes="(max-width: 768px) 50vw, 200px"
+                        />
+                      </div>
                       <Button
                         type="button"
                         variant="destructive"
